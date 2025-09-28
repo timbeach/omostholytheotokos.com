@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="icons8-orthodox-cross-50.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono:wght@400&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Orthodox Digital Sanctuary</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --accent-gold: #ffd700;
+            --accent-cyan: #00ffff;
+            --accent-purple: #8a2be2;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-accent: #ffd700;
+            --glow-gold: rgba(255, 215, 0, 0.6);
+            --glow-cyan: rgba(0, 255, 255, 0.4);
+            --glow-purple: rgba(138, 43, 226, 0.4);
+            --border-glow: rgba(255, 215, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Cyberpunk background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, var(--glow-gold) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--glow-cyan) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, var(--glow-purple) 0%, transparent 70%);
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
+            animation: cosmic-pulse 20s ease-in-out infinite;
+        }
+
+        /* Subtle scanlines */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.02) 3px,
+                rgba(255, 255, 255, 0.02) 4px
+            );
+            pointer-events: none;
+            z-index: 2;
+            animation: scanlines 15s linear infinite;
+        }
+
+        @keyframes cosmic-pulse {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.05); }
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: 40px 0;
+            border: 2px solid var(--accent-gold);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow:
+                0 0 30px var(--glow-gold),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: header-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes header-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--glow-gold), inset 0 0 30px rgba(255, 215, 0, 0.1); }
+            50% { box-shadow: 0 0 50px var(--glow-gold), inset 0 0 50px rgba(255, 215, 0, 0.2); }
+        }
+
+        header h1 {
+            font-family: 'Orbitron', 'Share Tech Mono', monospace;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin: 0;
+            color: var(--accent-gold);
+            text-align: center;
+            text-shadow:
+                0 0 10px var(--glow-gold),
+                0 0 20px var(--glow-gold),
+                0 0 30px var(--glow-gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: title-flicker 3s ease-in-out infinite;
+        }
+
+        @keyframes title-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+
+        .content {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-cyan);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow:
+                0 0 20px var(--glow-cyan),
+                inset 0 0 20px rgba(0, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple), var(--accent-gold));
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .content:hover::before {
+            opacity: 0.3;
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 10px 40px var(--glow-cyan),
+                inset 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .content h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--glow-gold);
+            letter-spacing: 2px;
+        }
+
+        .content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-shadow: 0 0 5px var(--glow-cyan);
+        }
+
+        a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        a:hover {
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px var(--glow-gold);
+        }
+
+        .audio-container {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .audio-container > div {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid var(--accent-purple);
+            box-shadow: 0 0 15px var(--glow-purple);
+        }
+
+        .audio-container p {
+            color: var(--accent-gold);
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px var(--glow-gold);
+            font-size: 1.1rem;
+        }
+
+        audio {
+            width: 100%;
+            height: 45px;
+            border-radius: 0;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-cyan);
+            box-shadow:
+                0 0 15px var(--glow-cyan),
+                inset 0 0 15px rgba(0, 255, 255, 0.1);
+            outline: none;
+        }
+
+        audio::-webkit-media-controls-panel {
+            background-color: var(--bg-tertiary);
+            border-radius: 0;
+        }
+
+        audio::-webkit-media-controls-play-button,
+        audio::-webkit-media-controls-pause-button {
+            background-color: var(--accent-gold);
+            border-radius: 0;
+        }
+
+        audio::-webkit-media-controls-timeline {
+            background-color: var(--bg-secondary);
+            border-radius: 0;
+        }
+
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 5px var(--glow-cyan);
+        }
+
+        audio::-webkit-media-controls-volume-slider {
+            background-color: var(--bg-secondary);
+            border-radius: 0;
+        }
+
+        audio::-webkit-media-controls-mute-button {
+            background-color: var(--accent-purple);
+            border-radius: 0;
+        }
+
+        .icon-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .icon-gallery img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            border: 2px solid var(--accent-gold);
+            box-shadow:
+                0 0 20px var(--glow-gold),
+                inset 0 0 20px rgba(255, 215, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .icon-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow:
+                0 0 40px var(--glow-gold),
+                inset 0 0 40px rgba(255, 215, 0, 0.2);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+            color: var(--text-secondary);
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 2px solid var(--accent-gold);
+            text-align: center;
+            box-shadow: 0 -10px 30px var(--glow-gold);
+        }
+
+        footer p {
+            font-style: italic;
+            font-size: 1.1rem;
+            text-shadow: 0 0 8px var(--glow-cyan);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                padding: 30px 0;
+            }
+
+            .content {
+                padding: 20px;
+                margin: 20px 0;
+            }
+
+            .icon-gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                letter-spacing: 1px;
+            }
+
+            .content h2 {
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Glory to the Father, and to the Son, and to the Holy Spirit</h1>
+        </header>
+
+        <!-- Prayer Audio Section -->
+        <div class="content">
+            <h2>O Most Holy Theotokos, save us!</h2>
+            <p><b>Sacred recordings from <a href="https://www.holycross.org" target="_blank">Holy Cross Monastery</a></b></p>
+            <div class="audio-container">
+                <div>
+                    <p>Morning Prayers</p>
+                    <audio controls>
+                        <source src="Prayers/Morning.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                <div>
+                    <p>Prayers Before Sleep</p>
+                    <audio controls>
+                        <source src="Prayers/Evening.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                <div>
+                    <p>Prayers Before Holy Communion</p>
+                    <audio controls>
+                        <source src="Prayers/BeforeCommunion.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                <div>
+                    <p>Paschal Hours</p>
+                    <audio controls>
+                        <source src="Prayers/Paschal.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <!-- Psalter Section -->
+        <div class="content">
+            <h2><a href="psalter_audio.html">The Psalter</a></h2>
+            <p>Complete audio collection of the 20 Kathisma from Patristic Nectar Publications</p>
+        </div>
+
+        <!-- Tone Tutor Section -->
+        <div class="content">
+            <h2><a href="tonetutor.html">Tone Tutor</a></h2>
+            <p>Learn Orthodox liturgical music with comprehensive audio lessons</p>
+        </div>
+
+        <!-- Sacred Icons Section -->
+        <div class="content">
+            <h2>Sacred Icons</h2>
+            <div class="icon-gallery">
+                <div>
+                    <h2>Christ The Pantocrator</h2>
+                    <img src="christ-the-pantocrator.png" alt="Christ The Pantocrator">
+                </div>
+                <div>
+                    <h2>The Mother of God</h2>
+                    <img src="mother-of-god-of-kazan.png" alt="The Mother of God (of Kazan)">
+                </div>
+                <div>
+                    <h2>St Seraphim of Sarov</h2>
+                    <img src="st-seraphim-of-sarov.png" alt="Saint Seraphim of Sarov">
+                </div>
+                <div>
+                    <h2>St John Maximovitch</h2>
+                    <img src="st-john-maximovitch.png" alt="Saint John Maximovitch">
+                </div>
+                <div>
+                    <h2>It is later than you think</h2>
+                    <img src="IT_IS_LATER_THAN_YOU_THINK.png" alt="Blessed Fr Seraphim Rose">
+                </div>
+                <div>
+                    <h2>Softener of Evil Hearts</h2>
+                    <img src="softener_of_evil_hearts.jpg" alt="Softener of Evil Hearts">
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Into Thy hands, O Lord Jesus Christ my God, I commit my spirit. Do Thou bless me, do Thou have mercy on me, and grant me life eternal. Amen.</p>
+    </footer>
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+# Temporary files
+*.swp
+*.bk
+*.bk1
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*~
+.*.swp
+
+# Logs
+*.log

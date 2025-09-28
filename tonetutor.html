@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono:wght@400&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Tone Tutor | Orthodox Digital Sanctuary</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --accent-gold: #ffd700;
+            --accent-cyan: #00ffff;
+            --accent-purple: #8a2be2;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-accent: #ffd700;
+            --glow-gold: rgba(255, 215, 0, 0.6);
+            --glow-cyan: rgba(0, 255, 255, 0.4);
+            --glow-purple: rgba(138, 43, 226, 0.4);
+            --border-glow: rgba(255, 215, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Cyberpunk background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, var(--glow-gold) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--glow-cyan) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, var(--glow-purple) 0%, transparent 70%);
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
+            animation: cosmic-pulse 20s ease-in-out infinite;
+        }
+
+        /* Subtle scanlines */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.02) 3px,
+                rgba(255, 255, 255, 0.02) 4px
+            );
+            pointer-events: none;
+            z-index: 2;
+            animation: scanlines 15s linear infinite;
+        }
+
+        @keyframes cosmic-pulse {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.05); }
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: 40px 0;
+            border: 2px solid var(--accent-gold);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow:
+                0 0 30px var(--glow-gold),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: header-glow 4s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes header-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--glow-gold), inset 0 0 30px rgba(255, 215, 0, 0.1); }
+            50% { box-shadow: 0 0 50px var(--glow-gold), inset 0 0 50px rgba(255, 215, 0, 0.2); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', 'Share Tech Mono', monospace;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            color: var(--accent-gold);
+            text-shadow:
+                0 0 10px var(--glow-gold),
+                0 0 20px var(--glow-gold),
+                0 0 30px var(--glow-gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: title-flicker 3s ease-in-out infinite;
+        }
+
+        @keyframes title-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .cyber-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            color: var(--text-primary);
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px var(--glow-gold);
+            box-shadow: 0 0 20px var(--glow-gold);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .cyber-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 30px var(--glow-gold);
+            text-shadow: 0 0 15px var(--glow-gold);
+        }
+
+        .nav-links {
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-shadow: 0 0 8px var(--glow-cyan);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+            text-shadow: 0 0 15px var(--glow-gold);
+            box-shadow: 0 0 20px var(--glow-gold);
+        }
+
+        .content {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-cyan);
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow:
+                0 0 20px var(--glow-cyan),
+                inset 0 0 20px rgba(0, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .audio-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--glow-purple);
+        }
+
+        .audio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--glow-purple);
+            border-color: var(--accent-gold);
+        }
+
+        .audio-item a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-shadow: 0 0 8px var(--glow-gold);
+            transition: all 0.3s ease;
+            display: block;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .audio-item a:hover {
+            background: rgba(255, 215, 0, 0.1);
+            text-shadow: 0 0 15px var(--glow-gold);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                padding: 30px 20px;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .audio-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                letter-spacing: 1px;
+            }
+
+            .audio-item {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tone Tutor</h1>
+            <p style="color: var(--text-secondary); font-size: 1.2rem; margin: 0;">Learn Orthodox liturgical music with comprehensive audio lessons</p>
+            <div class="nav-links">
+                <a href="index.html">Back to Home</a>
+            </div>
+        </header>
+
+        <div class="controls">
+            <button class="cyber-button" onclick="downloadAll()">Download All Files</button>
+            <button class="cyber-button" onclick="playAll()">Play All Files</button>
+        </div>
+
+        <div class="content">
+            <div class="audio-grid">
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/01_Introduction.mp3" target="_blank">01 Introduction</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/02_Theory_I.mp3" target="_blank">02 Theory I</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/03_Theory_II.mp3" target="_blank">03 Theory II</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/04_Application.mp3" target="_blank">04 Application</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/05_Melodies_Within_the_Tones.mp3" target="_blank">05 Melodies Within the Tones</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/06_The_Hymns_Used.mp3" target="_blank">06 The Hymns Used</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/07_Before_We_Begin.mp3" target="_blank">07 Before We Begin</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/08_T1_Sticheron_-_Lord_I_Have_Cried.mp3" target="_blank">08 T1 Sticheron - Lord I Have Cried</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/09_T1_Sticheron_-_Lord,_I_Have_Cried_(Melody).mp3" target="_blank">09 T1 Sticheron - Lord, I Have Cried (Melody)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/10_T1_Sticheron_-_Dogmaticon_(Melody).mp3" target="_blank">10 T1 Sticheron - Dogmaticon (Melody)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/11_T1_Sticheron_-_Dogmaticon_(Choir).mp3" target="_blank">11 T1 Sticheron - Dogmaticon (Choir)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/12_T1_Refrain_-_Both_Now_and_Ever.mp3" target="_blank">12 T1 Refrain - Both Now and Ever</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/13_T1_Refrain_-_Key_Hymn.mp3" target="_blank">13 T1 Refrain - Key Hymn</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/14_T1_Refrain_-_Key_Hymn_(Choir).mp3" target="_blank">14 T1 Refrain - Key Hymn (Choir)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/15_T1_Quiz_1.mp3" target="_blank">15 T1 Quiz 1</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/16_T1_Troparion_-_God_is_the_Lord.mp3" target="_blank">16 T1 Troparion - God is the Lord</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/17_T1_Troparion_-_Sunday_Troparion.mp3" target="_blank">17 T1 Troparion - Sunday Troparion</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/18_T1_Troparion_-_Sunday_Troparion_(Choir).mp3" target="_blank">18 T1 Troparion - Sunday Troparion (Choir)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/19_T1_Prokeimenon_-_Alleluia_(Melody).mp3" target="_blank">19 T1 Prokeimenon - Alleluia (Melody)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/20_T1_Prokeimenon_-_Sunday_Matins_Prokeimenon_(Melody).mp3" target="_blank">20 T1 Prokeimenon - Sunday Matins Prokeimenon (Melody)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/21_T1_Prokeimenon_-_Sunday_Matins_Prokeimenon_(Choir).mp3" target="_blank">21 T1 Prokeimenon - Sunday Matins Prokeimenon (Choir)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/22_T1_Quiz_2.mp3" target="_blank">22 T1 Quiz 2</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/23_T1_Irmos.mp3" target="_blank">23 T1 Irmos</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/24_T1_Irmos_(Melody).mp3" target="_blank">24 T1 Irmos (Melody)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/25_T1_Irmos_-_Sunday_Irmos.mp3" target="_blank">25 T1 Irmos - Sunday Irmos</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/26_T1_Irmos_-_Sunday_Irmos_(Choir).mp3" target="_blank">26 T1 Irmos - Sunday Irmos (Choir)</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/27_T1_Test,_Part_1.mp3" target="_blank">27 T1 Test, Part 1</a></div>
+                <div class="audio-item"><a href="/ToneTutor/TONE_01/28_T1_Test,_Part_2.mp3" target="_blank">28 T1 Test, Part 2</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadAll() {
+            const links = document.querySelectorAll('.audio-item a');
+            links.forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.href;
+                a.download = link.href.split('/').pop();
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+        }
+
+        function playAll() {
+            const links = document.querySelectorAll('.audio-item a');
+            let currentIndex = 0;
+
+            function playNext() {
+                if (currentIndex < links.length) {
+                    const audio = new Audio(links[currentIndex].href);
+                    audio.play();
+                    audio.addEventListener('ended', () => {
+                        currentIndex++;
+                        playNext();
+                    });
+                }
+            }
+
+            playNext();
+        }
+    </script>
+</body>
+</html>
