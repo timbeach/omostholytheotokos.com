@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -vhrla --exclude .git/ --exclude .gitignore --exclude CLAUDE.md --exclude .claude/ --exclude '*.swp' --exclude '*.bk' --exclude '*.bk1' --exclude deploy.sh $PWD/ vultr:/var/www/omostholytheotokos.com
